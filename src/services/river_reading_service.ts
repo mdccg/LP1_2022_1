@@ -7,6 +7,8 @@ import { API_URL } from '../config/api'
 import { toDateString } from '../utils/date_utils'
 
 export const fetchRiverReadingData = async (
+  city: string,
+  riverName: string,
   stationCode: string,
   initialDate: Date,
   finalDate: Date
@@ -42,13 +44,15 @@ export const fetchRiverReadingData = async (
   if (results) {
     results.forEach((r) => {
       const stationCode = r.CodEstacao[0]
-      const level = parseFloat(r.Nivel[0])
-      const flow = parseFloat(r.Vazao[0])
-      const rain = parseFloat(r.Chuva[0])
+      const level = parseFloat(r.Nivel[0]) || 0
+      const flow = parseFloat(r.Vazao[0]) || 0
+      const rain = parseFloat(r.Chuva[0]) || 0
       const dateTime = new Date(r.DataHora[0].trim())
 
       const reading: RiverReading = {
         stationCode,
+        city,
+        riverName,
         level,
         flow,
         rain,
