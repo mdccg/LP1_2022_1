@@ -7,9 +7,8 @@ import { API_URL } from '../config/api'
 import { toDateString } from '../utils/date_utils'
 
 export const fetchRiverReadingData = async (
-  city: string,
-  riverName: string,
   stationCode: string,
+  riverName: string,
   initialDate: Date,
   finalDate: Date
 ) => {
@@ -51,7 +50,6 @@ export const fetchRiverReadingData = async (
 
       const reading: RiverReading = {
         stationCode,
-        city,
         riverName,
         level,
         flow,

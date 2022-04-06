@@ -1,22 +1,18 @@
+import { writeFileSync } from 'fs'
 import { RiverReading } from '../models/RiverReading'
 
-import { writeFileSync } from 'fs'
-import { join } from 'path'
-
-export const saveToCsvFile = (fileName: string, readings: RiverReading[]) => {
-  let { stationCode, city, riverName } = readings[0]
-
-  let csvContent = `${city} (${riverName}): ${stationCode}\n`
+export const saveToCsvFile = (readings: RiverReading[], fileName: string) => {
+  let csvContent = 'Cod Estação,Rio,Data/Hora,Nível,Vazão,Chuva\n'
   
-  csvContent += 'Data e hora,Nível,Vazão\n'
+  readings = readings.reverse()
   
-  readings.reverse().forEach((r) => {
-    const line = `${r.dateTime.toISOString()},${r.level},${r.flow}\n`
+  readings.forEach((r) => {
+    var timestamp = `${r.dateTime.toLocaleDateString()} ${r.dateTime.toLocaleTimeString()}`
+    const line = `${r.stationCode},${r.riverName},${timestamp},${r.level},${r.flow},${r.rain}\n`
     //csvContent = csvContent + line
     //csvContent += line
     csvContent = `${csvContent}${line}`
   })
 
-  const path = join(__dirname + '/../', 'data', fileName)
-  writeFileSync(path, csvContent)
+  writeFileSync(fileName, csvContent)
 }
