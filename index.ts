@@ -1,6 +1,6 @@
-import { RiverReading } from './models/RiverReading'
-import { fetchRiverReadingData } from './services/river_reading_service'
-import { saveToCsvFile } from './utils/file_utils'
+import { RiverReading } from './src/models/RiverReading'
+import { fetchRiverReadingData } from './src/services/river_reading_service'
+import { saveToCsvFile } from './src/utils/file_utils'
 
 import moment from 'moment'
 
